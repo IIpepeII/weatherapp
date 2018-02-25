@@ -1,5 +1,8 @@
 const yargs = require('yargs');
+
 const geocode = require('./geocode/geocode');
+const weather = require('./weather/weather');
+
 const argv = yargs
 .options({
     a: {
@@ -17,6 +20,15 @@ geocode.geocodeAddress(argv.address, (errorMessage, results) => {
     if(errorMessage){
         console.log(errorMessage);
     }else{
-        console.log(JSON.stringify(results, undefined, 2));
+        console.log(results.address + `\n`);
+        weather.getWeather(results.latitude, results.longitude, (errorMessage, weatherResults) => {
+            if(errorMessage){
+                console.log(errorMessage);
+            }else {
+                temperatureInC  = Math.round((5/9) * (weatherResults.temperature - 32));
+                apparentTemperatureInC  = Math.round((5/9) * (weatherResults.apparentTemperature - 32));
+                console.log(`A jelenlegi hőmérséklet: ${temperatureInC}C\nÉrzet: ${apparentTemperatureInC}C` )
+            }
+        });
     }
 });

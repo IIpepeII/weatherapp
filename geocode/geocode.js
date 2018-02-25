@@ -19,8 +19,6 @@ var geocodeAddress= (address, callback) => {
                 latitude: body.results[0].geometry.location.lat,
                 longitude: body.results[0].geometry.location.lat
             })
-     //   console.log(`Address:${body.results[0].formatted_address} lat: ${body.results[0].geometry.location.lat} long
-     //   : ${body.results[0].geometry.location.lat}`);
         }
     })
 };
